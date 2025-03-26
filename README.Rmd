@@ -47,9 +47,7 @@ deaths <- deaths %>%
   )
 
 deaths <- deaths %>% select(-Death1, -Death2, -Death3, -Death4, -Death5)
-
 ```
-
 
 Similarly, deal with the returns of characters.
 
@@ -88,17 +86,44 @@ For each team member, copy this part of the report.
 
 Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
 
+
+#Jordyn: 
+
 ### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact-check.
-
-Khoo Hong Hao: The MVP of the Earth-616 Marvel Universe Avengers has to be Jocasta — an android based on Janet van Dyne and built by Ultron — who has been destroyed five times and then recovered five times.
+> "Out of 173 listed Avengers, my analysis found that 69 had died at least one time after they joined the team. That’s about 40 percent of all people who have ever signed on to the team."
 
 ### Include the code
 
-Make sure to include the code to derive the (numeric) fact for the statement
+```{r}
+avengers_died_once <- deaths %>%
+  filter(Death == "yes") %>%
+  distinct(Name.Alias) %>%
+  nrow()
 
-Khoo Hong Hao:
+total_avengers <- deaths %>%
+  distinct(Name.Alias) %>%
+  nrow()
+
+percentage_died <- (avengers_died_once / total_avengers) * 100
+
+avengers_died_once
+percentage_died
+
+```
+
+### Include your answer
+
+Jordyn: After fact checking, I found that 64 avengers had died at least one time rather than 69. However, the percentage was very similar, it was found to be 39% rather than 40%.
+
+#Hong Hao Khoo: 
+
+### FiveThirtyEight Statement
+
+> "The MVP of the Earth-616 Marvel Universe Avengers has to be Jocasta — an android based on Janet van Dyne and built by Ultron — who has been destroyed five times and then recovered five times."
+
+### Include the code
+
 ```{r}
 JocastaDeathReturn <- deaths[deaths$Name.Alias == "Jocasta",]
 
@@ -108,8 +133,22 @@ JocastaDeathReturn$retTime
 
 ### Include your answer
 
-Include at least one sentence discussing the result of your fact-checking endeavor.
+I use the deaths data set created in task 1 and simply retrieve the number of times Jocasta died and returned. It is true that Jocasta died and return 5 times.
 
-Upload your changes to the repository. Discuss and refine answers as a team.
+#Adrian:
 
-Khoo Hong Hao: I use the deaths data set created in task 1 and simply retrieve the number of times Jocasta died and returned. It is true that Jocasta died and return 5 times.
+### FiveThirtyEight Statement
+
+> I counted 89 total deaths — some unlucky Avengers are basically Meat Loaf with an E-ZPass — and on 57 occasions the individual made a comeback.
+
+### Include the code
+
+```{r}
+sum(deaths$Time)
+sum(deaths$retTime)
+```
+
+### Include your answer
+
+Summing the values of deaths and of returns, we see that the claim is correct: there are 89 total deaths and 57 total returns.
+
