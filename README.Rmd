@@ -27,13 +27,47 @@ Extract from the data below two data sets in long form `deaths` and `returns`
 ```{r}
 av <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/avengers/avengers.csv", stringsAsFactors = FALSE)
 head(av)
+View(av)
 ```
 
 Get the data into a format where the five columns for Death[1-5] are replaced by two columns: Time, and Death. Time should be a number between 1 and 5 (look into the function `parse_number`); Death is a categorical variables with values "yes", "no" and "". Call the resulting data set `deaths`. 
 
 Similarly, deal with the returns of characters.
 
-Based on these datasets calculate the average number of deaths an Avenger suffers. 
+Based on these datasets calculate the average number of deaths an Avenger suffers.
+
+```{r}
+library(tidyverse)
+deaths <- av %>%
+  pivot_longer(
+    cols      = c("Death1", "Death2", "Death3", "Death4", "Death5"),
+    names_to  = "Time",
+    values_to = "Death"
+  ) %>%
+  mutate(
+    Time = parse_number(Time),
+    Death = case_when(
+      tolower(Death) == "yes" ~ "yes",
+      tolower(Death) == "no"  ~ "no",
+      TRUE                    ~ ""   
+    )
+  )
+
+deaths <- av %>%
+  pivot_longer(
+    cols      = c("Return1", "Return2", "Return3", "Return4", "Return5"),
+    names_to  = "Time",
+    values_to = "Return"
+  ) %>%
+  mutate(
+    Time = parse_number(Time),
+    Return = case_when(
+      tolower(Return) == "yes" ~ "yes",
+      tolower(Return) == "no"  ~ "no",
+      TRUE                    ~ ""   
+    )
+  )
+```
 
 ## Individually
 
@@ -44,6 +78,8 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 ### FiveThirtyEight Statement
 
 > Quote the statement you are planning to fact-check.
+
+Khoo Hong Hao: 
 
 ### Include the code
 
