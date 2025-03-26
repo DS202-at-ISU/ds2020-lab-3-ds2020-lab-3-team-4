@@ -84,18 +84,14 @@ For each team member, copy this part of the report.
 Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
 
 
-Jordyn: 
+#Jordyn: 
 
 ### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact check
-
-Jordyn:
-"Out of 173 listed Avengers, my analysis found that 69 had died at least one time after they joined the team. That’s about 40 percent of all people who have ever signed on to the team."
+> "Out of 173 listed Avengers, my analysis found that 69 had died at least one time after they joined the team. That’s about 40 percent of all people who have ever signed on to the team."
 
 ### Include the code
 
-Jordyn:
 ```{r}
 avengers_died_once <- deaths %>%
   filter(Death == "yes") %>%
@@ -115,8 +111,21 @@ percentage_died
 
 ### Include your answer
 
-Include at least one sentence discussing the result of your fact-checking endeavor.
 
 Jordyn: After fact checking, I found that 64 avengers had died at least one time rather than 69. However, the percentage was very similar, it was found to be 39% rather than 40%.
 
-Upload your changes to the repository. Discuss and refine answers as a team.
+
+#Adrian:
+
+### FiveThirtyEight Statement
+
+> I counted 89 total deaths — some unlucky Avengers are basically Meat Loaf with an E-ZPass — and on 57 occasions the individual made a comeback.
+
+### Include the code
+
+```{r}
+sum(deaths$Time)
+sum(deaths$retTime)
+```
+### Include your answer
+Summing the values of deaths and of returns, we see that the claim is correct: there are 89 total deaths and 57 total returns.
