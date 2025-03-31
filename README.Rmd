@@ -152,3 +152,39 @@ sum(deaths$retTime)
 
 Summing the values of deaths and of returns, we see that the claim is correct: there are 89 total deaths and 57 total returns.
 
+# Naomi:
+
+### Did all on-screen Avengers die and come back to life at least once?
+
+> Of the nine Avengers we see on screen — Iron Man, Hulk, Captain America, Thor, Hawkeye, Black Widow, Scarlet Witch, Quicksilver and The Vision — every single one of them has died at least once in the course of their time Avenging in the comics... all those top-tier Avengers get better after their first death...
+
+### Include the code
+
+```{r}
+
+print_death_info <- function(name, deaths) {
+  index <- which(deaths$Name.Alias == name)
+  
+  if (length(index) == 0) {
+    print(paste0(name, " not found in the dataset."))
+  } else {
+    print(paste0(deaths$Name.Alias[index], 
+                 " has died ", deaths$Time[index], 
+                 " times and has been resurrected ", deaths$retTime[index], 
+                 " times."))
+  }
+}
+
+
+
+characters <- c("Anthony Edward \"Tony\" Stark", "Robert Bruce Banner", "Steven Rogers", "Thor Odinson", "Clinton Francis Barton", "Natalia Alianovna Romanova", "Wanda Maximoff", "Pietro Maximoff", "Victor Shade (alias)")
+
+for (char in characters) {
+  print_death_info(char, deaths)
+}
+
+
+
+```
+
+We can see from the above code that all of the Avengers have been resurrected at least once. Only one of them (Thor Odinson) has died more than he has been resurrected.
